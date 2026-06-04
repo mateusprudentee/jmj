@@ -1,0 +1,56 @@
+﻿<div class="container">
+  <header>
+    <div class="header-content">
+      <h1>📋 Minhas Tarefas</h1>
+      <div class="user-info" *ngIf="authService.currentUser()">
+        👋 Olá, {{ authService.currentUser()?.name || 'Usuário' }}
+      </div>
+    </div>
+    <button (click)="logout()" class="btn-logout">🚪 Sair</button>
+  </header>
+
+  <div class="add-task">
+    <input 
+      type="text" 
+      [(ngModel)]="newTaskTitle" 
+      placeholder="Digite uma nova tarefa..."
+      (keyup.enter)="createTask()"
+      [disabled]="isLoading()"
+    >
+    <button (click)="createTask()" class="btn-add" [disabled]="isLoading()">
+      ➕ Adicionar
+    </button>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading">
+    <div class="spinner"></div>
+    <p>Carregando tarefas...</p>
+  </div>
+
+  <div class="task-list" *ngIf="!isLoading()">
+    <div *ngFor="let task of tasks()" class="task-item">
+      <div class="task-content">
+        <h3>{{ task.title }}</h3>
+        <span [class]="'status-badge ' + getStatusClass(task.status)">
+          {{ getStatusText(task.status) }}
+        </span>
+      </div>
+      <div class="task-actions">
+        <select [value]="task.status" (change)="updateStatus(task, $event)">
+          <option value="PENDING">⏳ Pendente</option>
+          <option value="IN_PROGRESS">🔄 Em andamento</option>
+          <option value="COMPLETED">✅ Concluída</option>
+        </select>
+        <button (click)="deleteTask(task.id!)" class="btn-delete" title="Excluir">
+          🗑️
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="tasks().length === 0" class="empty-state">
+      <div class="empty-icon">📭</div>
+      <h3>Nenhuma tarefa encontrada</h3>
+      <p>Que tal criar sua primeira tarefa?</p>
+    </div>
+  </div>
+</div>

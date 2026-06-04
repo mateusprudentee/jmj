@@ -1,0 +1,65 @@
+@"
+<div class="register-container">
+  <div class="register-card">
+    <h2>Criar Conta</h2>
+
+    <div *ngIf="message()" class="message" [class.success]="success()" [class.error]="!success()">
+      {{ message() }}
+    </div>
+
+    <div class="form-group">
+      <label>Nome completo:</label>
+      <input
+        type="text"
+        [(ngModel)]="name"
+        placeholder="Digite seu nome"
+        [disabled]="isLoading()"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="seu@email.com"
+        [disabled]="isLoading()"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Senha:</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Mínimo 6 caracteres"
+        [disabled]="isLoading()"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Confirmar senha:</label>
+      <input
+        type="password"
+        [(ngModel)]="confirmPassword"
+        placeholder="Digite a senha novamente"
+        [disabled]="isLoading()"
+        (keyup.enter)="register()"
+      >
+    </div>
+
+    <button
+      (click)="register()"
+      [disabled]="isLoading()"
+      class="btn-register"
+    >
+      {{ isLoading() ? 'Criando conta...' : 'Criar Conta' }}
+    </button>
+
+    <div class="login-link">
+      Já tem uma conta?
+      <a href="javascript:void(0)" (click)="goToLogin()">Faça login</a>
+    </div>
+  </div>
+</div>
+"@ | Out-File -FilePath src/app/features/auth/register/register.component.html -Encoding utf8

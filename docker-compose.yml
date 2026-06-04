@@ -1,0 +1,25 @@
+services:
+
+  postgres-user:
+    image: postgres:16
+    container_name: user-service-db
+
+    environment:
+      POSTGRES_DB: usersdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+  postgres-task:
+    image: postgres:16
+    container_name: task-service-db
+
+    environment:
+      POSTGRES_DB: tasksdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5433:5432"

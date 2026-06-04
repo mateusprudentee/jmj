@@ -1,0 +1,20 @@
+﻿apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: task-manager
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - secrets.yaml
+  - auth-service/deployment.yaml
+  - auth-service/service.yaml
+  - auth-service/hpa.yaml
+  - task-service/deployment.yaml
+  - task-service/service.yaml
+  - task-service/hpa.yaml
+  - frontend/deployment.yaml
+  - frontend/service.yaml
+  - frontend/hpa.yaml
+  - database/postgres-deployment.yaml
+  - database/postgres-service.yaml
+  - database/postgres-pvc.yaml
+  - ingress.yaml
